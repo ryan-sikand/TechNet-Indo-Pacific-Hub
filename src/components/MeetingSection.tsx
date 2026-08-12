@@ -1,5 +1,6 @@
-import { ArrowUpRight, CalendarDays, Mail } from 'lucide-react'
-import { contacts, event, getContactCtaUrl } from '../content'
+import { ArrowUpRight, Mail } from 'lucide-react'
+import { contacts, event } from '../content'
+import { getMeetingCtaUrl } from '../content/contacts'
 
 export function MeetingSection({ compact = false }: { compact?: boolean }) {
   return (
@@ -8,12 +9,20 @@ export function MeetingSection({ compact = false }: { compact?: boolean }) {
         <span className="eyebrow">Meet with UiPath</span>
         <h2 id="meeting-section-title">Continue the conversation in Honolulu.</h2>
         <p>
-          Share the J/N staff function or mission workflow you want to explore. We’ll use your note to prepare a focused conversation.
+          Share the J/N staff function or mission workflow you want to explore. We&apos;ll use your note to prepare a focused conversation.
         </p>
         <div className="meeting-section__event">
-          <CalendarDays aria-hidden="true" />
+          <img src={`${import.meta.env.BASE_URL}brand/icons/calendar.svg`} alt="" width="24" height="24" decoding="async" aria-hidden="true" />
           <span><strong>{event.dateRange}</strong>{event.location}</span>
         </div>
+        <a
+          className="button button--primary button--full meeting-section__cta"
+          href={getMeetingCtaUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Request a Meeting <ArrowUpRight aria-hidden="true" />
+        </a>
       </div>
       <div className="contact-grid">
         {contacts.map((contact) => (
@@ -22,7 +31,7 @@ export function MeetingSection({ compact = false }: { compact?: boolean }) {
               {contact.name.split(' ').map((part) => part[0]).join('')}
             </div>
             <div className="contact-card__body">
-              <span className="micro-label">UiPath · Public Sector</span>
+              <span className="micro-label">UiPath | Public Sector</span>
               <h3>{contact.name}</h3>
               <p>{contact.title}</p>
               <a
@@ -34,14 +43,6 @@ export function MeetingSection({ compact = false }: { compact?: boolean }) {
                 <Mail aria-hidden="true" /> {contact.email}
               </a>
             </div>
-            <a
-              className="button button--primary button--full"
-              href={getContactCtaUrl(contact)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {contact.bookingUrl ? 'Book time' : 'Request a meeting'} <ArrowUpRight aria-hidden="true" />
-            </a>
           </article>
         ))}
       </div>

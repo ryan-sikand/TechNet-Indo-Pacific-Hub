@@ -6,7 +6,7 @@ export function MeetPage() {
   return (
     <>
       <PageHero
-        eyebrow={`${event.dateRange} · ${event.location}`}
+        eyebrow={`${event.dateRange} | ${event.location}`}
         title="Meet with UiPath"
         description="Tell us which J/N function, mission workflow, or capability you want to explore during TechNet Indo-Pacific 2026."
       />

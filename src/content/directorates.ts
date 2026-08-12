@@ -16,6 +16,10 @@ export const directorates: Directorate[] = [
     ],
     resourceIds: ['agentic-onboarding-demo'],
     proofPointIds: ['workflow-proof-slot'],
+    detail: {
+      missionChallenge: 'Personnel actions move across forms, validation steps, approvals, and scheduling systems, making status and handoffs difficult to track.',
+      uipathCapability: 'UiPath can coordinate intake, validation, approvals, and downstream scheduling in one governed workflow with clear human review points.',
+    },
   },
   {
     id: 'j2-n2',
@@ -32,6 +36,10 @@ export const directorates: Directorate[] = [
     ],
     resourceIds: ['entity-resolution-video'],
     proofPointIds: ['trusted-data-proof-slot'],
+    detail: {
+      missionChallenge: 'Analysts must reconcile fragmented records while preserving source evidence, ambiguity, and the need for accountable review.',
+      uipathCapability: 'UiPath can unify records from multiple systems, retain source context, and route uncertain matches to analysts for a clear decision.',
+    },
   },
   {
     id: 'j3-n3',
@@ -49,6 +57,10 @@ export const directorates: Directorate[] = [
     ],
     resourceIds: ['entity-resolution-video', 'orchestration-briefing-deck', 'aar-demo-placeholder'],
     proofPointIds: ['workflow-proof-slot', 'review-proof-slot'],
+    detail: {
+      missionChallenge: 'Operational teams need trusted context and visible coordination across data sources, mission workflows, handoffs, and reporting cycles.',
+      uipathCapability: 'UiPath can connect operational records, orchestrate work across agents, automations, people, and systems, and keep exceptions visible.',
+    },
   },
   {
     id: 'j4-n4',
@@ -65,22 +77,31 @@ export const directorates: Directorate[] = [
     ],
     resourceIds: ['entity-resolution-video', 'orchestration-briefing-deck'],
     proofPointIds: ['trusted-data-proof-slot', 'workflow-proof-slot'],
+    detail: {
+      missionChallenge: 'Sustainment teams work across fragmented supplier, resource, exception, approval, and follow-up processes.',
+      uipathCapability: 'UiPath can reconcile supplier context and coordinate sustainment workflows with visible reviews, approvals, exceptions, and next actions.',
+    },
   },
   {
     id: 'j6-n6',
     code: 'J6 / N6',
-    name: 'C5 / Cyber',
+    name: 'Communications, IT & Cyber',
     slug: 'j6-n6',
-    shortDescription: 'Strengthen change validation and asset or identity context.',
+    shortDescription: 'Strengthen Security Operations, change validation, and asset or identity context.',
     summary:
       'Accelerate regression and patch validation while improving asset and identity context for cyber operations.',
-    capabilityIds: ['test-cloud', 'entity-resolution'],
+    capabilityIds: ['security-operations', 'test-cloud', 'entity-resolution'],
     featuredUseCases: [
+      { id: 'security-operations-soc', title: 'Security Operations / SOC', description: 'Coordinate repeatable patch validation and release evidence while bringing asset and identity records together for review.' },
       { id: 'patch-validation', title: 'Patch validation', description: 'Organize repeatable test coverage and release evidence.' },
       { id: 'asset-identity', title: 'Asset / identity 360', description: 'Reconcile records across systems into reviewable context.' },
     ],
     resourceIds: ['test-cloud-overview', 'entity-resolution-video'],
     proofPointIds: ['test-proof-slot', 'trusted-data-proof-slot'],
+    detail: {
+      missionChallenge: 'Security operations must validate patches and releases while maintaining trusted, reviewable asset and identity context across systems.',
+      uipathCapability: 'UiPath Test Cloud organizes repeatable test coverage and validation evidence. Entity Resolution reconciles asset and identity records across systems and routes ambiguous matches to a clear human review point.',
+    },
   },
   {
     id: 'j7-n7',
@@ -97,6 +118,10 @@ export const directorates: Directorate[] = [
     ],
     resourceIds: ['aar-demo-placeholder'],
     proofPointIds: ['review-proof-slot'],
+    detail: {
+      missionChallenge: 'Exercise observations arrive from distributed participants and must be turned into consistent, review-ready lessons and actions.',
+      uipathCapability: 'UiPath can collect inputs, organize themes, identify actions and owners, and prepare a structured after-action package for review.',
+    },
   },
   {
     id: 'j8-n8',
@@ -113,6 +138,10 @@ export const directorates: Directorate[] = [
     ],
     resourceIds: ['financial-audit-one-pager'],
     proofPointIds: ['audit-proof-slot'],
+    detail: {
+      missionChallenge: 'Evidence collection, reconciliation, and traceability depend on repeatable work across financial and resource-management systems.',
+      uipathCapability: 'UiPath can automate evidence gathering, coordinate exceptions and review, and maintain a visible process trail for audit readiness.',
+    },
   },
   {
     id: 'j9',
@@ -129,5 +158,9 @@ export const directorates: Directorate[] = [
     ],
     resourceIds: ['aar-demo-placeholder'],
     proofPointIds: ['review-proof-slot'],
+    detail: {
+      missionChallenge: 'Engagement notes, commitments, and open actions must become concise readouts and useful context for the next touchpoint.',
+      uipathCapability: 'UiPath can structure distributed inputs into themes, actions, owners, read-aheads, and consistent follow-up packages.',
+    },
   },
 ]

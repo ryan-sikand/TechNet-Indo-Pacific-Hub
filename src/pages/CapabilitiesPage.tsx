@@ -12,7 +12,7 @@ export function CapabilitiesPage() {
         eyebrow="Shared capability model"
         title="Capabilities"
         description="Reusable UiPath capability concepts with directorate-specific framing and shared customer-facing resources."
-        action={<RouterLink className="button button--primary" to="/meet"><CalendarDays aria-hidden="true" /> Schedule a Meeting</RouterLink>}
+        action={<RouterLink className="button button--primary" to="/meet"><CalendarDays aria-hidden="true" /> Request a Meeting</RouterLink>}
       />
       <section className="content-section page-width">
         <div className="capability-grid capability-grid--page">

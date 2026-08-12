@@ -60,6 +60,19 @@ export const capabilities: Capability[] = [
     proofPointIds: ['review-proof-slot'],
   },
   {
+    id: 'security-operations',
+    name: 'Security Operations Orchestration',
+    slug: 'security-operations',
+    shortDescription: 'Coordinate repeatable patch validation and release evidence while bringing asset and identity records together for review.',
+    description:
+      'Use governed testing and trusted asset or identity context to support reviewable Security Operations workflows.',
+    directorateMappings: [
+      { directorateId: 'j6-n6', framing: 'Security Operations / SOC' },
+    ],
+    resourceIds: [],
+    proofPointIds: [],
+  },
+  {
     id: 'test-cloud',
     name: 'Test Cloud',
     slug: 'test-cloud',

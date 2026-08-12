@@ -8,7 +8,7 @@ import type { ResourceFilter } from '../types'
 export function ResourcesPage() {
   const [filter, setFilter] = useState<ResourceFilter>('All')
   const filteredResources = useMemo(
-    () => resources.filter((resource) => resource.customerFacing && resourceMatchesFilter(resource, filter)),
+    () => resources.filter((resource) => resource.customerFacing && !resource.placeholder && resourceMatchesFilter(resource, filter)),
     [filter],
   )
 
@@ -17,7 +17,7 @@ export function ResourcesPage() {
       <PageHero
         eyebrow="Customer-facing library"
         title="Resources"
-        description="A public-safe shell for demos, videos, solution briefs, customer stories, presentations, and event materials."
+        description="Approved event and UiPath materials for customer follow-up. Additional assets appear here only after their links and content are verified."
       />
       <section className="content-section page-width">
         <div className="resource-toolbar">
@@ -47,8 +47,8 @@ export function ResourcesPage() {
         ) : (
           <div className="empty-state">
             <Search aria-hidden="true" />
-            <h2>No {filter.toLowerCase()} assets in the skeleton yet.</h2>
-            <p>This category is ready for the next customer-facing content-ingestion pass.</p>
+            <h2>No approved {filter.toLowerCase()} resources are available yet.</h2>
+            <p>Verified customer-facing materials will be added here as they are approved.</p>
             <button type="button" onClick={() => setFilter('All')}>Show all resources</button>
           </div>
         )}

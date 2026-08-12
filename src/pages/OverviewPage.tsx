@@ -1,6 +1,5 @@
-import { ArrowRight, ArrowUpRight, CalendarDays, ExternalLink, Layers3, MapPin, Workflow } from 'lucide-react'
-import { capabilities, event, resources } from '../content'
-import { CapabilityCard } from '../components/CapabilityCard'
+import { ArrowRight, CalendarDays, ExternalLink, Layers3, MapPin, Workflow } from 'lucide-react'
+import { event, featuredMissions, resources } from '../content'
 import { DirectorateGrid } from '../components/DirectorateGrid'
 import { Hero } from '../components/Hero'
 import { MeetingSection } from '../components/MeetingSection'
@@ -15,7 +14,8 @@ const guideSteps = [
 ]
 
 export function OverviewPage() {
-  const featuredResources = resources.filter((resource) => resource.featured).slice(0, 3)
+  const featuredResources = resources.filter((resource) => resource.featured && !resource.placeholder).slice(0, 3)
+  const maritimeOperationsCenter = featuredMissions[0]
 
   return (
     <>
@@ -25,16 +25,31 @@ export function OverviewPage() {
         <div className="page-width event-ribbon__inner">
           <span><MapPin aria-hidden="true" /> {event.location}</span>
           <span><CalendarDays aria-hidden="true" /> {event.dateRange}</span>
-          <a href={event.eventUrl} target="_blank" rel="noreferrer">Official event page <ExternalLink aria-hidden="true" /></a>
+          <a href={event.eventUrl} target="_blank" rel="noreferrer">Official Event Details <ExternalLink aria-hidden="true" /></a>
         </div>
       </section>
 
       <section className="content-section page-width">
+        <RouterLink className="featured-mission" to={`/${maritimeOperationsCenter.slug}`}>
+          <article>
+            <div className="featured-mission__icon" aria-hidden="true">
+              <img src={`${import.meta.env.BASE_URL}brand/icons/orchestrator.svg`} alt="" width="42" height="42" decoding="async" />
+            </div>
+            <div className="featured-mission__copy">
+              <span className="eyebrow">Priority mission area</span>
+              <h2>{maritimeOperationsCenter.name}</h2>
+              <p>{maritimeOperationsCenter.shortDescription}</p>
+            </div>
+            <span className="featured-mission__action">Explore Maritime Operations Center <ArrowRight aria-hidden="true" /></span>
+          </article>
+        </RouterLink>
+      </section>
+
+      <section className="content-section content-section--staff-functions page-width" id="staff-functions">
         <SectionHeading
           eyebrow="Mission map"
-          title="Explore by J/N staff function."
-          description="Each view connects a staff mission to reusable UiPath capabilities, concise use-case framing, and customer-facing resource slots."
-          action={<RouterLink className="text-link" to="/jn">View all J/N codes <ArrowRight aria-hidden="true" /></RouterLink>}
+          title="Explore by Staff Function"
+          description="Choose the staff function or mission area that best matches the conversation. Each tile opens directly to its final detail page."
         />
         <DirectorateGrid />
       </section>
@@ -62,23 +77,11 @@ export function OverviewPage() {
         </div>
       </section>
 
-      <section className="content-section page-width">
-        <SectionHeading
-          eyebrow="Canonical capability model"
-          title="One capability. Mission-specific framing."
-          description="Capabilities are defined once and mapped to the staff functions where their framing changes."
-          action={<RouterLink className="text-link" to="/capabilities">Capability map <ArrowRight aria-hidden="true" /></RouterLink>}
-        />
-        <div className="capability-grid">
-          {capabilities.map((capability) => <CapabilityCard capability={capability} compact key={capability.id} />)}
-        </div>
-      </section>
-
       <section className="content-section content-section--resources page-width">
         <SectionHeading
           eyebrow="Resource library"
           title="Customer-facing assets, ready to expand."
-          description="This first pass contains a small public-safe set plus clearly labeled slots for demos, videos, briefs, stories, and decks."
+          description="A focused set of approved event and UiPath materials for follow-up conversations."
           action={<RouterLink className="text-link" to="/resources">Open the library <ArrowRight aria-hidden="true" /></RouterLink>}
         />
         <div className="resource-grid resource-grid--featured">
@@ -90,13 +93,6 @@ export function OverviewPage() {
         <MeetingSection />
       </div>
 
-      <section className="closing-banner page-width">
-        <div>
-          <span className="eyebrow">October 26–29 · Honolulu</span>
-          <h2>Bring a mission workflow. Leave with a clearer automation path.</h2>
-        </div>
-        <RouterLink className="button button--primary button--large" to="/meet">Schedule a Meeting <ArrowUpRight aria-hidden="true" /></RouterLink>
-      </section>
     </>
   )
 }

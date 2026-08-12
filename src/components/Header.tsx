@@ -1,6 +1,7 @@
 import { CalendarDays, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { navigation } from '../content'
+import { getMeetingCtaUrl } from '../content/contacts'
 import { RouterLink, useRoute } from '../utils/router'
 import { BrandLogo } from './BrandLogo'
 
@@ -33,11 +34,15 @@ export function Header() {
     <>
       <header className="site-header">
         <div className="site-header__inner">
-          <RouterLink className="site-brand" to="/" aria-label="UiPath at TechNet Indo-Pacific 2026 home">
-            <BrandLogo />
-            <span className="site-brand__divider" aria-hidden="true" />
-            <span className="site-brand__event">TechNet Indo-Pacific <strong>2026</strong></span>
-          </RouterLink>
+          <div className="site-branding">
+            <RouterLink className="site-brand" to="/" aria-label="UiPath at TechNet Indo-Pacific 2026 home">
+              <BrandLogo />
+            </RouterLink>
+            <div className="site-brand__descriptor" aria-hidden="true">
+              <span className="site-brand__divider" />
+              <span className="site-brand__event">TechNet Indo-Pacific <strong>2026</strong></span>
+            </div>
+          </div>
 
           <nav className="desktop-nav" aria-label="Primary navigation">
             {navigation.map((item) => (
@@ -51,10 +56,6 @@ export function Header() {
               </RouterLink>
             ))}
           </nav>
-
-          <RouterLink className="button button--primary header-cta" to="/meet">
-            <CalendarDays aria-hidden="true" /> Schedule a Meeting
-          </RouterLink>
 
           <button
             className="mobile-menu-button"
@@ -90,9 +91,9 @@ export function Header() {
                 </RouterLink>
               ))}
             </nav>
-            <RouterLink className="button button--primary button--full" to="/meet">
-              <CalendarDays aria-hidden="true" /> Schedule a Meeting
-            </RouterLink>
+            <a className="button button--primary button--full" href={getMeetingCtaUrl()} target="_blank" rel="noopener noreferrer">
+              <CalendarDays aria-hidden="true" /> Request a Meeting
+            </a>
           </aside>
         </>
       )}

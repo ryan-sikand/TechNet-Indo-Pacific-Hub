@@ -38,6 +38,11 @@ export interface FeaturedUseCase {
   description: string
 }
 
+export interface DetailContent {
+  missionChallenge: string
+  uipathCapability: string
+}
+
 export interface Directorate {
   id: string
   code: string
@@ -49,6 +54,7 @@ export interface Directorate {
   featuredUseCases: FeaturedUseCase[]
   resourceIds: string[]
   proofPointIds: string[]
+  detail: DetailContent
 }
 
 export interface DirectorateMapping {

@@ -1,6 +1,5 @@
 import { ArrowUpRight, CalendarDays, MapPin } from 'lucide-react'
 import { event } from '../content'
-import { RouterLink } from '../utils/router'
 import { BrandLogo } from './BrandLogo'
 
 export function Footer() {
@@ -18,13 +17,12 @@ export function Footer() {
           <div><MapPin aria-hidden="true" /> {event.location}</div>
         </div>
         <div className="site-footer__links">
-          <span className="micro-label">Connect</span>
-          <RouterLink to="/meet">Meet with UiPath <ArrowUpRight aria-hidden="true" /></RouterLink>
-          <a href={event.eventUrl} target="_blank" rel="noreferrer">Official event page <ArrowUpRight aria-hidden="true" /></a>
+          <span className="micro-label">Event link</span>
+          <a href={event.eventUrl} target="_blank" rel="noreferrer">Official Event Details <ArrowUpRight aria-hidden="true" /></a>
         </div>
       </div>
       <div className="site-footer__legal page-width">
-        <span>© 2005–2026 UiPath. All rights reserved.</span>
+        <span>&copy; 2005&ndash;2026 UiPath. All rights reserved.</span>
         <span>Customer-facing event field guide</span>
       </div>
     </footer>

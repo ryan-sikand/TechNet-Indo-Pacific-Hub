@@ -55,8 +55,8 @@ Deployment uses the saved `acebounce-staging` profile and the UiPath Coded Apps 
 
 ```powershell
 uip --profile acebounce-staging login status --output json
-uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.2 --description "UiPath at TechNet Indo-Pacific 2026" --output json
-uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.2 --type Web --output json
+uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.3 --description "UiPath at TechNet Indo-Pacific 2026" --output json
+uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.3 --type Web --output json
 $folderKey = uip --profile acebounce-staging or folders list --all --name "Shared" --output json | ConvertFrom-Json | ForEach-Object { $_.Data[0].Key }
 uip --profile acebounce-staging codedapp deploy --name technet-indo-pacific-hub --path-name technet-indo-pacific-2026 --folder-key $folderKey --output json
 ```

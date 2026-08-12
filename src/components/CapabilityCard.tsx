@@ -18,7 +18,7 @@ export function CapabilityCard({ capability, compact = false }: { capability: Ca
         <div className="capability-card__codes" aria-label="Associated directorates">
           {codes.map((code) => <span key={code}>{code}</span>)}
         </div>
-        <span className="capability-card__action">View Capability <ArrowRight aria-hidden="true" /></span>
+        <span className="capability-card__action">Learn More <ArrowRight aria-hidden="true" /></span>
       </article>
     </RouterLink>
   )

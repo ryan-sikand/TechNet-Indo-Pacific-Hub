@@ -1,4 +1,4 @@
-import { ArrowUpRight, FileText, LockKeyhole } from 'lucide-react'
+import { ArrowUpRight, LockKeyhole } from 'lucide-react'
 import { getCapabilityById, getDirectorateById } from '../content'
 import type { Resource } from '../types'
 
@@ -13,7 +13,9 @@ export function ResourceCard({ resource, compact = false }: { resource: Resource
   return (
     <article className={`resource-card${compact ? ' resource-card--compact' : ''}`}>
       <div className="resource-card__header">
-        <span className="resource-card__icon"><FileText aria-hidden="true" /></span>
+        <span className="resource-card__icon" aria-hidden="true">
+          <img src={`${import.meta.env.BASE_URL}brand/icons/resource.svg`} alt="" width="28" height="28" decoding="async" />
+        </span>
         <span className="resource-type">{resource.type}</span>
         {resource.placeholder && <span className="placeholder-badge">Placeholder</span>}
       </div>

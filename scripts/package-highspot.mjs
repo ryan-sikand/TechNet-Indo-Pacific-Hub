@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { readFile, readdir, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
@@ -28,18 +28,35 @@ if (!stylesheetTagMatch || !scriptTagMatch || !stylesheetPath || !scriptPath) {
   throw new Error('Could not find the Vite stylesheet and module script in dist-highspot/index.html')
 }
 
-const [css, bundledJavaScript, logoSvg] = await Promise.all([
+const iconDirectory = path.join(projectRoot, 'public', 'brand', 'icons')
+const iconFiles = await readdir(iconDirectory)
+const [css, bundledJavaScript, logoSvg, technetLogo, iconAssets] = await Promise.all([
   readOutputAsset(stylesheetPath),
   readOutputAsset(scriptPath),
   readFile(path.join(projectRoot, 'public', 'brand', 'uipath-wordmark.svg'), 'utf8'),
+  readFile(path.join(projectRoot, 'public', 'brand', 'technet-indo-pacific-2026.png')),
+  Promise.all(iconFiles.map(async (fileName) => [
+    fileName,
+    await readFile(path.join(iconDirectory, fileName), 'utf8'),
+  ])),
 ])
 
 const logoDataUrl = `data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}`
-const portableJavaScript = bundledJavaScript.replaceAll('./brand/uipath-wordmark.svg', logoDataUrl)
+const technetLogoDataUrl = `data:image/png;base64,${technetLogo.toString('base64')}`
+let portableJavaScript = bundledJavaScript
+  .replaceAll('./brand/uipath-wordmark.svg', logoDataUrl)
+  .replaceAll('./brand/technet-indo-pacific-2026.png', technetLogoDataUrl)
+for (const [fileName, svg] of iconAssets) {
+  const dataUrl = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`
+  portableJavaScript = portableJavaScript.replaceAll(`./brand/icons/${fileName}`, dataUrl)
+}
 const scriptDataUrl = `data:text/javascript;base64,${Buffer.from(portableJavaScript).toString('base64')}`
 
 if (portableJavaScript.includes('./assets/')) {
   throw new Error('Highspot JavaScript still references an external build chunk')
+}
+if (portableJavaScript.includes('./brand/')) {
+  throw new Error('Highspot JavaScript still references an external brand asset')
 }
 
 for (const match of [stylesheetTagMatch, scriptTagMatch].sort((left, right) => right.index - left.index)) {

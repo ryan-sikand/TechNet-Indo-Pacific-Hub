@@ -1,16 +1,15 @@
 import type { Contact } from '../types'
 
 export const meetingEmail = {
-  subject: 'TechNet Indo-Pacific 2026 | Meeting Request',
-  body: `Hello,
+  subject: 'TechNet Indo-Pacific 2026 | UiPath Meeting Request',
+  body: `Hello UiPath team,
 
-I'd like to schedule time with UiPath during TechNet Indo-Pacific 2026.
+I'd like to meet with the UiPath team during TechNet Indo-Pacific 2026.
 
 Name:
 Organization:
-Area / J-N Code:
-Use case of interest:
-Preferred date/time:
+Topic or workflow:
+Preferred day/time:
 
 Thank you.`,
 }
@@ -33,10 +32,13 @@ export const contacts: Contact[] = [
 export function getContactCtaUrl(contact: Contact) {
   if (contact.bookingUrl) return contact.bookingUrl
 
-  const params = new URLSearchParams({
-    subject: meetingEmail.subject,
-    body: meetingEmail.body,
-  })
+  return getMeetingMailtoUrl(contact.email)
+}
 
-  return `mailto:${contact.email}?${params.toString()}`
+function getMeetingMailtoUrl(email: string) {
+  return `mailto:${email}?subject=${encodeURIComponent(meetingEmail.subject)}&body=${encodeURIComponent(meetingEmail.body)}`
+}
+
+export function getMeetingCtaUrl() {
+  return getMeetingMailtoUrl(contacts.map((contact) => contact.email).join(','))
 }

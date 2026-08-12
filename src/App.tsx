@@ -1,8 +1,6 @@
 import { SiteLayout } from './components/SiteLayout'
-import { CapabilitiesPage } from './pages/CapabilitiesPage'
-import { CapabilityDetailPage } from './pages/CapabilityDetailPage'
 import { DirectorateDetailPage } from './pages/DirectorateDetailPage'
-import { JNPage } from './pages/JNPage'
+import { FeaturedMissionDetailPage } from './pages/FeaturedMissionDetailPage'
 import { MeetPage } from './pages/MeetPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { OverviewPage } from './pages/OverviewPage'
@@ -16,13 +14,15 @@ export function AppRoutes() {
   if (path === '/' || path === '/overview') {
     page = <OverviewPage />
   } else if (path === '/jn') {
-    page = <JNPage />
+    page = <OverviewPage />
   } else if (path.startsWith('/jn/')) {
     page = <DirectorateDetailPage slug={decodeURIComponent(path.slice('/jn/'.length))} />
-  } else if (path === '/capabilities') {
-    page = <CapabilitiesPage />
-  } else if (path.startsWith('/capabilities/')) {
-    page = <CapabilityDetailPage slug={decodeURIComponent(path.slice('/capabilities/'.length))} />
+  } else if (path === '/maritime-operations-center') {
+    page = <FeaturedMissionDetailPage slug="maritime-operations-center" />
+  } else if (path.startsWith('/missions/')) {
+    page = <FeaturedMissionDetailPage slug={decodeURIComponent(path.slice('/missions/'.length))} />
+  } else if (path === '/capabilities' || path.startsWith('/capabilities/')) {
+    page = <OverviewPage />
   } else if (path === '/resources') {
     page = <ResourcesPage />
   } else if (path === '/meet') {
