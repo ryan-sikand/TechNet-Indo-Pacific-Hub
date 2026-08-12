@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111820" />
+    <meta
+      name="description"
+      content="Explore UiPath agentic automation and orchestration use cases across PACOM and PACFLT J/N staff functions."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="UiPath at TechNet Indo-Pacific 2026" />
+    <meta
+      property="og:description"
+      content="Explore UiPath agentic automation and orchestration use cases across PACOM and PACFLT J/N staff functions."
+    />
+    <meta property="og:url" content="https://uipathlabs.staging.uipath.host/technet-indo-pacific-2026" />
+    <meta name="twitter:card" content="summary" />
+    <title>UiPath at TechNet Indo-Pacific 2026</title>
+    <script>
+      ;(() => {
+        const isHosted = window.location.hostname.endsWith('.uipath.host')
+        const firstSegment = window.location.pathname.split('/').filter(Boolean)[0]
+        const base = isHosted && firstSegment ? `/${firstSegment}/` : window.location.protocol === 'file:' ? './' : '/'
+        const element = document.createElement('base')
+        element.href = base
+        document.head.appendChild(element)
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

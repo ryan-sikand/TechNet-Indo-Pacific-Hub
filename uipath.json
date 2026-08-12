@@ -1,0 +1,8 @@
+{
+  "scope": "",
+  "clientId": "",
+  "orgName": "",
+  "tenantName": "",
+  "baseUrl": "https://staging.api.uipath.com",
+  "redirectUri": "http://localhost:5173"
+}
