@@ -61,6 +61,12 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     expect(meetingLinks[0]).toHaveAttribute('href', getContactCtaUrl(contacts[0]))
     expect(meetingLinks[0].getAttribute('href')).toContain('TechNet+Indo-Pacific+2026')
     expect(meetingLinks[0].getAttribute('href')).toContain('Area+%2F+J-N+Code')
+    expect(meetingLinks[0]).toHaveAttribute('target', '_blank')
+    expect(meetingLinks[0]).toHaveAttribute('rel', 'noopener noreferrer')
+
+    const directEmailLinks = screen.getAllByRole('link', { name: /@uipath\.com/i })
+    expect(directEmailLinks[0]).toHaveAttribute('target', '_blank')
+    expect(directEmailLinks[0]).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
   it('supports an Escape-close mobile navigation drawer', async () => {

@@ -45,6 +45,8 @@ The public build uses shareable history routes such as `/jn/j2-n2`, `/capabiliti
 
 The `build:highspot` task runs the same content and UI build in hash-routing mode, then inlines the JavaScript, CSS, and UiPath logo into `dist-highspot/index.html`. It does not iframe or depend on the public site. Open that generated file—not the source-level root `index.html` or hosted `dist/index.html`—when testing directly from disk.
 
+Meeting email actions open in a separate browsing context so Highspot's sandboxed viewer stays intact while the browser launches the visitor's configured mail app. After any source change, rebuild and upload the newly generated `dist-highspot/index.html`; an earlier Highspot upload will not update automatically.
+
 ## UiPath Labs Playground deployment
 
 Target: UiPath Labs staging, organization `uipathlabs`, tenant `Playground`, shared Playground folder. This matches the tenant-feed deployment pattern used by the reference app and avoids a current staging issue downloading Coded Web App packages from Personal Workspace feeds.

@@ -25,9 +25,21 @@ export function MeetingSection({ compact = false }: { compact?: boolean }) {
               <span className="micro-label">UiPath · Public Sector</span>
               <h3>{contact.name}</h3>
               <p>{contact.title}</p>
-              <a className="contact-card__email" href={`mailto:${contact.email}`}><Mail aria-hidden="true" /> {contact.email}</a>
+              <a
+                className="contact-card__email"
+                href={`mailto:${contact.email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Mail aria-hidden="true" /> {contact.email}
+              </a>
             </div>
-            <a className="button button--primary button--full" href={getContactCtaUrl(contact)}>
+            <a
+              className="button button--primary button--full"
+              href={getContactCtaUrl(contact)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {contact.bookingUrl ? 'Book time' : 'Request a meeting'} <ArrowUpRight aria-hidden="true" />
             </a>
           </article>
