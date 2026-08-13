@@ -49,19 +49,19 @@ Meeting email actions open in a separate browsing context so Highspot's sandboxe
 
 ## UiPath Labs Playground deployment
 
-Target: UiPath Labs, organization `uipathlabs`, tenant `Playground`, `ryan.sikand@uipath.com`'s Personal Workspace.
+Target: UiPath Labs staging, organization `uipathlabs`, tenant `Playground`. The public app is upgraded in the top-level `Shared` folder so its existing pathname remains stable. Version 1.0.4 was also published to `ryan.sikand@uipath.com`'s Personal Workspace package feed.
 
 Deployment uses the saved `acebounce-staging` profile and the UiPath Coded Apps sequence:
 
 ```powershell
 uip --profile acebounce-staging login status --output json
 uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.4 --description "UiPath at TechNet Indo-Pacific 2026" --output json
-uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.4 --type Web --personal-workspace --output json
-$folderKey = uip --profile acebounce-staging or folders list --all --type personal --name "ryan.sikand" --output json | ConvertFrom-Json | ForEach-Object { $_.Data | Where-Object { $_.OwnerName -eq "ryan.sikand@uipath.com" } | Select-Object -ExpandProperty Key }
-uip --profile acebounce-staging codedapp deploy --name technet-indo-pacific-hub --path-name technet-indo-pacific-2026 --folder-key $folderKey --output json
+uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.4 --type Web --output json
+$folderKey = uip --profile acebounce-staging or folders list --all --name "Shared" --output json | ConvertFrom-Json | ForEach-Object { $_.Data | Where-Object { $_.Path -eq "Shared" } | Select-Object -ExpandProperty Key }
+uip --profile acebounce-staging codedapp deploy --name technet-indo-pacific-hub --folder-key $folderKey --output json
 ```
 
-Public URL: `https://uipathlabs.uipath.host/technet-indo-pacific-2026`
+Public staging URL: `https://uipathlabs.staging.uipath.host/technet-indo-pacific-2026`
 
 For a redeploy, increment the version in `package.json` and in the pack/publish commands, then build, pack, publish, and deploy again. Do not commit tokens or browser-side secrets.
 
