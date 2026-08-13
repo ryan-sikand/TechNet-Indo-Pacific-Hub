@@ -46,6 +46,8 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     expect(screen.getAllByText('October 26\u201329, 2026').length).toBeGreaterThan(0)
     screen.getAllByRole('link', { name: 'Request a Meeting' }).forEach((link) => {
       expect(link).toHaveAttribute('href', getMeetingCtaUrl())
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer')
     })
   })
 
@@ -150,19 +152,30 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     expect(screen.getByText(/will be added here as they are approved/i)).toBeInTheDocument()
   })
 
-  it('uses one team-level pre-populated meeting request', () => {
+  it('opens one team-level Outlook calendar invitation', () => {
     window.history.replaceState({}, '', '/meet')
     render(<App />)
 
     const meetingSection = screen.getByRole('region', { name: 'Continue the conversation in Honolulu.' })
-    expect(within(meetingSection).getByText('Share the staff function or mission workflow you want to explore. We’ll use your note to prepare a focused conversation.')).toBeInTheDocument()
+    expect(within(meetingSection).getByText('Choose a date and time in the calendar invitation, then share the staff function or mission workflow you want to explore.')).toBeInTheDocument()
     const meetingLinks = within(meetingSection).getAllByRole('link', { name: 'Request a Meeting' })
     expect(meetingLinks).toHaveLength(1)
     expect(meetingLinks[0]).toHaveAttribute('href', getMeetingCtaUrl())
-    expect(meetingLinks[0].getAttribute('href')).toContain(`mailto:${contacts.map((contact) => contact.email).join(',')}?`)
-    expect(meetingLinks[0].getAttribute('href')).toContain('TechNet%20Indo-Pacific%202026')
-    expect(meetingLinks[0].getAttribute('href')).toContain('Topic%20or%20workflow')
+    const calendarUrl = new URL(meetingLinks[0].getAttribute('href')!)
+    expect(calendarUrl.origin).toBe('https://outlook.office.com')
+    expect(calendarUrl.pathname).toBe('/calendar/deeplink/compose')
+    expect(calendarUrl.searchParams.get('path')).toBe('/calendar/action/compose')
+    expect(calendarUrl.searchParams.get('rru')).toBe('addevent')
+    expect(calendarUrl.searchParams.get('to')).toBe(contacts.map((contact) => contact.email).join(','))
+    expect(calendarUrl.searchParams.get('subject')).toBe('TechNet Indo-Pacific 2026 | UiPath Meeting')
+    expect(calendarUrl.searchParams.get('body')).toContain('Staff function or mission workflow')
+    expect(calendarUrl.searchParams.get('location')).toBe('TechNet Indo-Pacific 2026 | Honolulu, Hawaii')
+    expect(calendarUrl.searchParams.has('startdt')).toBe(false)
+    expect(calendarUrl.searchParams.has('enddt')).toBe(false)
+    expect(calendarUrl.searchParams.has('send')).toBe(false)
+    expect(calendarUrl.searchParams.has('members')).toBe(false)
     expect(meetingLinks[0].getAttribute('href')).not.toContain('+')
+    expect(meetingLinks[0].getAttribute('href')).not.toContain('mailto:')
     expect(meetingLinks[0]).toHaveAttribute('target', '_blank')
     expect(meetingLinks[0]).toHaveAttribute('rel', 'noopener noreferrer')
 
@@ -171,8 +184,7 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
       expect(within(meetingSection).queryByRole('link', { name: contact.email })).not.toBeInTheDocument()
     })
     const emailActions = within(meetingSection).getAllByRole('link').filter((link) => link.getAttribute('href')?.startsWith('mailto:'))
-    expect(emailActions).toHaveLength(1)
-    expect(emailActions[0]).toHaveAttribute('href', getMeetingCtaUrl())
+    expect(emailActions).toHaveLength(0)
   })
 
   it('supports an Escape-close mobile navigation drawer', async () => {
@@ -183,7 +195,10 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     await user.click(menuButton)
     const mobileNavigation = screen.getByLabelText('Mobile navigation')
     expect(mobileNavigation).toBeInTheDocument()
-    expect(within(mobileNavigation).getByRole('link', { name: 'Request a Meeting' })).toHaveAttribute('href', getMeetingCtaUrl())
+    const mobileMeetingLink = within(mobileNavigation).getByRole('link', { name: 'Request a Meeting' })
+    expect(mobileMeetingLink).toHaveAttribute('href', getMeetingCtaUrl())
+    expect(mobileMeetingLink).toHaveAttribute('target', '_blank')
+    expect(mobileMeetingLink).toHaveAttribute('rel', 'noopener noreferrer')
 
     await user.keyboard('{Escape}')
     expect(screen.queryByLabelText('Mobile navigation')).not.toBeInTheDocument()

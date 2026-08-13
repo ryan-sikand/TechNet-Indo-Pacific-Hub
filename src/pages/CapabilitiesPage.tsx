@@ -1,9 +1,9 @@
 import { CalendarDays } from 'lucide-react'
 import { capabilities } from '../content'
+import { getMeetingCtaUrl } from '../content/contacts'
 import { CapabilityCard } from '../components/CapabilityCard'
 import { MeetingSection } from '../components/MeetingSection'
 import { PageHero } from '../components/PageHero'
-import { RouterLink } from '../utils/router'
 
 export function CapabilitiesPage() {
   return (
@@ -12,7 +12,7 @@ export function CapabilitiesPage() {
         eyebrow="Shared capability model"
         title="Capabilities"
         description="Reusable UiPath capability concepts with directorate-specific framing and shared customer-facing resources."
-        action={<RouterLink className="button button--primary" to="/meet"><CalendarDays aria-hidden="true" /> Request a Meeting</RouterLink>}
+        action={<a className="button button--primary" href={getMeetingCtaUrl()} target="_blank" rel="noopener noreferrer"><CalendarDays aria-hidden="true" /> Request a Meeting</a>}
       />
       <section className="content-section page-width">
         <div className="capability-grid capability-grid--page">

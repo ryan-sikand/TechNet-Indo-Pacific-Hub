@@ -5,12 +5,12 @@ import {
   getProofPointById,
   getResourceById,
 } from '../content'
+import { getMeetingCtaUrl } from '../content/contacts'
 import { MeetingSection } from '../components/MeetingSection'
 import { PageHero } from '../components/PageHero'
 import { ResourceCard } from '../components/ResourceCard'
 import { SectionHeading } from '../components/SectionHeading'
 import type { Directorate, ProofPoint, Resource } from '../types'
-import { RouterLink } from '../utils/router'
 import { NotFoundPage } from './NotFoundPage'
 
 export function CapabilityDetailPage({ slug }: { slug: string }) {
@@ -36,7 +36,7 @@ export function CapabilityDetailPage({ slug }: { slug: string }) {
           { label: 'Home', to: '/' },
           { label: capability.name },
         ]}
-        action={<RouterLink className="button button--primary" to="/meet"><CalendarDays aria-hidden="true" /> Request a Meeting</RouterLink>}
+        action={<a className="button button--primary" href={getMeetingCtaUrl()} target="_blank" rel="noopener noreferrer"><CalendarDays aria-hidden="true" /> Request a Meeting</a>}
       />
 
       <section className="content-section page-width">
