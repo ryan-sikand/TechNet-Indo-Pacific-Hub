@@ -6,14 +6,15 @@ type SectionHeadingProps = {
   description?: string
   action?: ReactNode
   align?: 'left' | 'center'
+  titleId?: string
 }
 
-export function SectionHeading({ eyebrow, title, description, action, align = 'left' }: SectionHeadingProps) {
+export function SectionHeading({ eyebrow, title, description, action, align = 'left', titleId }: SectionHeadingProps) {
   return (
     <div className={`section-heading section-heading--${align}`}>
       <div>
         <span className="eyebrow">{eyebrow}</span>
-        <h2>{title}</h2>
+        <h2 id={titleId}>{title}</h2>
         {description && <p>{description}</p>}
       </div>
       {action && <div className="section-heading__action">{action}</div>}

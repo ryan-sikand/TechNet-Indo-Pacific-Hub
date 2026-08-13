@@ -1,10 +1,11 @@
-import { CheckCircle2, Layers3, Target } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Layers3, Target } from 'lucide-react'
 import { getCapabilityById, getProofPointById, getResourceById } from '../content'
 import type { Capability, DetailContent, FeaturedUseCase, ProofPoint, Resource } from '../types'
 import { MeetingSection } from './MeetingSection'
 import { PageHero } from './PageHero'
 import { ResourceCard } from './ResourceCard'
 import { SectionHeading } from './SectionHeading'
+import { RouterLink } from '../utils/router'
 
 type Breadcrumb = {
   label: string
@@ -54,6 +55,17 @@ export function MissionDetail({
 
   return (
     <>
+      {directorateId && (
+        <nav className="detail-return-bar" aria-label="Staff function navigation">
+          <div className="page-width detail-return-bar__inner">
+            <RouterLink className="detail-return-bar__link" to="/#staff-functions" replace>
+              <ArrowLeft aria-hidden="true" />
+              <span>Back to staff functions</span>
+            </RouterLink>
+          </div>
+        </nav>
+      )}
+
       <PageHero
         badge={code}
         eyebrow="Mission field guide"

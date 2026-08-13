@@ -31,7 +31,7 @@ export function AppRoutes() {
     page = <NotFoundPage />
   }
 
-  return <SiteLayout>{page}</SiteLayout>
+  return <SiteLayout><div className="route-view" key={path}>{page}</div></SiteLayout>
 }
 
 export function App() {

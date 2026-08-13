@@ -47,16 +47,18 @@ The `build:highspot` task runs the same content and UI build in hash-routing mod
 
 Meeting email actions open in a separate browsing context so Highspot's sandboxed viewer stays intact while the browser launches the visitor's configured mail app. After any source change, rebuild and upload the newly generated `dist-highspot/index.html`; an earlier Highspot upload will not update automatically.
 
+Staff-function cards open their detail route at the top with a brief page transition. Each staff detail keeps a sticky `Back to staff functions` link available throughout the page; it returns to the named `Explore by Staff Function` section in both hosted and Highspot routing modes.
+
 ## UiPath Labs Playground deployment
 
-Target: UiPath Labs staging, organization `uipathlabs`, tenant `Playground`. The public app is upgraded in the top-level `Shared` folder so its existing pathname remains stable. Version 1.0.6 is also published to `ryan.sikand@uipath.com`'s Personal Workspace package feed.
+Target: UiPath Labs staging, organization `uipathlabs`, tenant `Playground`. The public app is upgraded in the top-level `Shared` folder so its existing pathname remains stable. Version 1.0.7 is also published to `ryan.sikand@uipath.com`'s Personal Workspace package feed.
 
 Deployment uses the saved `acebounce-staging` profile and the UiPath Coded Apps sequence:
 
 ```powershell
 uip --profile acebounce-staging login status --output json
-uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.6 --description "UiPath at TechNet Indo-Pacific 2026" --output json
-uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.6 --type Web --output json
+uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.7 --description "UiPath at TechNet Indo-Pacific 2026" --output json
+uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.7 --type Web --output json
 $folderKey = uip --profile acebounce-staging or folders list --all --name "Shared" --output json | ConvertFrom-Json | ForEach-Object { $_.Data | Where-Object { $_.Path -eq "Shared" } | Select-Object -ExpandProperty Key }
 uip --profile acebounce-staging codedapp deploy --name technet-indo-pacific-hub --folder-key $folderKey --output json
 ```

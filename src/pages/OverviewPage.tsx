@@ -45,10 +45,16 @@ export function OverviewPage() {
         </RouterLink>
       </section>
 
-      <section className="content-section content-section--staff-functions page-width" id="staff-functions">
+      <section
+        className="content-section content-section--staff-functions page-width"
+        id="staff-functions"
+        aria-labelledby="staff-functions-heading"
+        tabIndex={-1}
+      >
         <SectionHeading
           eyebrow="Mission map"
           title="Explore by Staff Function"
+          titleId="staff-functions-heading"
           description="Explore PACOM and PACFLT staff functions and mission areas that best match the conversation."
         />
         <DirectorateGrid />

@@ -1,6 +1,6 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { App } from './App'
 import { contacts, directorates } from './content'
 import { getMeetingCtaUrl } from './content/contacts'
@@ -52,13 +52,41 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
   it('uses one reusable route template for directorate detail views', async () => {
     const user = userEvent.setup()
     render(<App />)
+    const scrollTo = vi.mocked(window.scrollTo)
+    scrollTo.mockClear()
 
     await user.click(screen.getByRole('link', { name: 'Explore J2 / N2 Intelligence' }))
 
     expect(screen.getByRole('heading', { name: 'Intelligence' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Intelligence' })).toHaveFocus()
     expect(screen.getByText('Targeting / Intelligence')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Identity resolution' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Back to staff functions' })).toHaveAttribute('href', '/#staff-functions')
     expect(window.location.pathname).toBe('/jn/j2-n2')
+    await waitFor(() => expect(scrollTo).toHaveBeenCalledWith({ top: 0, left: 0, behavior: 'instant' }))
+  })
+
+  it('keeps an accessible return control on staff details and restores the staff-function section', async () => {
+    const user = userEvent.setup()
+    window.history.replaceState({}, '', '/jn/j6-n6')
+    render(<App />)
+
+    const backLink = screen.getByRole('link', { name: 'Back to staff functions' })
+    expect(backLink).toHaveAttribute('href', '/#staff-functions')
+    backLink.focus()
+    expect(backLink).toHaveFocus()
+
+    const scrollIntoView = vi.mocked(Element.prototype.scrollIntoView)
+    scrollIntoView.mockClear()
+    await user.keyboard('{Enter}')
+
+    const staffSection = await screen.findByRole('region', { name: 'Explore by Staff Function' })
+    expect(window.location.pathname).toBe('/')
+    expect(window.location.hash).toBe('#staff-functions')
+    expect(staffSection).toHaveFocus()
+    await waitFor(() => {
+      expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'instant', block: 'start' })
+    })
   })
 
   it('resolves legacy index paths to the direct landing experience', () => {
@@ -79,6 +107,7 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     expect(screen.getByText('UiPath Capability')).toBeInTheDocument()
     expect(screen.getByText('Relevant Use Case')).toBeInTheDocument()
     expect(screen.queryByText('Demo')).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Back to staff functions' })).not.toBeInTheDocument()
   })
 
   it('renders grounded N6 Security Operations content without placeholder demos', () => {

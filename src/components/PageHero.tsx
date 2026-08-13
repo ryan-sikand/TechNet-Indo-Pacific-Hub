@@ -35,7 +35,7 @@ export function PageHero({ eyebrow, title, description, badge, breadcrumbs, acti
           {badge && <span className="page-hero__badge">{badge}</span>}
           <div>
             <span className="eyebrow">{eyebrow}</span>
-            <h1>{title}</h1>
+            <h1 tabIndex={-1}>{title}</h1>
             <p>{description}</p>
           </div>
           {action && <div className="page-hero__action">{action}</div>}
