@@ -49,15 +49,15 @@ Meeting email actions open in a separate browsing context so Highspot's sandboxe
 
 ## UiPath Labs Playground deployment
 
-Target: UiPath Labs, organization `uipathlabs`, tenant `Playground`, shared Playground folder. This matches the tenant-feed deployment pattern used by the reference app and avoids downloading Coded Web App packages from Personal Workspace feeds.
+Target: UiPath Labs, organization `uipathlabs`, tenant `Playground`, `ryan.sikand@uipath.com`'s Personal Workspace.
 
 Deployment uses the saved `acebounce-staging` profile and the UiPath Coded Apps sequence:
 
 ```powershell
 uip --profile acebounce-staging login status --output json
-uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.3 --description "UiPath at TechNet Indo-Pacific 2026" --output json
-uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.3 --type Web --output json
-$folderKey = uip --profile acebounce-staging or folders list --all --name "Shared" --output json | ConvertFrom-Json | ForEach-Object { $_.Data | Where-Object { $_.Path -eq "Shared" } | Select-Object -ExpandProperty Key }
+uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.4 --description "UiPath at TechNet Indo-Pacific 2026" --output json
+uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.4 --type Web --personal-workspace --output json
+$folderKey = uip --profile acebounce-staging or folders list --all --type personal --name "ryan.sikand" --output json | ConvertFrom-Json | ForEach-Object { $_.Data | Where-Object { $_.OwnerName -eq "ryan.sikand@uipath.com" } | Select-Object -ExpandProperty Key }
 uip --profile acebounce-staging codedapp deploy --name technet-indo-pacific-hub --path-name technet-indo-pacific-2026 --folder-key $folderKey --output json
 ```
 
