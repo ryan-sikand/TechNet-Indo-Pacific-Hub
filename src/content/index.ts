@@ -4,7 +4,7 @@ import { proofPoints } from './proofPoints'
 import { resources } from './resources'
 
 export { capabilities } from './capabilities'
-export { contacts, getContactCtaUrl, meetingEmail } from './contacts'
+export { contacts, meetingEmail } from './contacts'
 export { directorates } from './directorates'
 export { event } from './event'
 export { featuredMissions, getFeaturedMissionBySlug } from './featuredMissions'

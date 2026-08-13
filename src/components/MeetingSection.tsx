@@ -34,14 +34,11 @@ export function MeetingSection({ compact = false }: { compact?: boolean }) {
               <span className="micro-label">UiPath | Public Sector</span>
               <h3>{contact.name}</h3>
               <p>{contact.title}</p>
-              <a
+              <span
                 className="contact-card__email"
-                href={`mailto:${contact.email}`}
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 <Mail aria-hidden="true" /> {contact.email}
-              </a>
+              </span>
             </div>
           </article>
         ))}

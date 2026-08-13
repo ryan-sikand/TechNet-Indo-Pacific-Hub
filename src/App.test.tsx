@@ -35,6 +35,7 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
       expect(staffMap.getByRole('link', { name: `Explore ${code} ${name}` })).toHaveAttribute('href', `/jn/${slug}`)
     })
     const fieldGuide = screen.getByRole('complementary', { name: 'Field guide overview' })
+    expect(within(fieldGuide).queryByText('TIP 26')).not.toBeInTheDocument()
     expect(within(fieldGuide).getByText('Mission-focused outcomes')).toBeInTheDocument()
     expect(within(fieldGuide).getByText(String(directorates.length).padStart(2, '0'))).toBeInTheDocument()
     expect(within(fieldGuide).getByText('Staff Functions')).toBeInTheDocument()
@@ -43,6 +44,9 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     expect(screen.queryByRole('link', { name: 'Staff Functions' })).not.toBeInTheDocument()
     expect(screen.getAllByText('Honolulu, Hawaii').length).toBeGreaterThan(0)
     expect(screen.getAllByText('October 26\u201329, 2026').length).toBeGreaterThan(0)
+    screen.getAllByRole('link', { name: 'Request a Meeting' }).forEach((link) => {
+      expect(link).toHaveAttribute('href', getMeetingCtaUrl())
+    })
   })
 
   it('uses one reusable route template for directorate detail views', async () => {
@@ -117,10 +121,13 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     expect(meetingLinks[0]).toHaveAttribute('target', '_blank')
     expect(meetingLinks[0]).toHaveAttribute('rel', 'noopener noreferrer')
 
-    const directEmailLinks = within(meetingSection).getAllByRole('link', { name: /@uipath\.com/i })
-    expect(directEmailLinks).toHaveLength(2)
-    expect(directEmailLinks[0]).toHaveAttribute('target', '_blank')
-    expect(directEmailLinks[0]).toHaveAttribute('rel', 'noopener noreferrer')
+    contacts.forEach((contact) => {
+      expect(within(meetingSection).getByText(contact.email)).toBeInTheDocument()
+      expect(within(meetingSection).queryByRole('link', { name: contact.email })).not.toBeInTheDocument()
+    })
+    const emailActions = within(meetingSection).getAllByRole('link').filter((link) => link.getAttribute('href')?.startsWith('mailto:'))
+    expect(emailActions).toHaveLength(1)
+    expect(emailActions[0]).toHaveAttribute('href', getMeetingCtaUrl())
   })
 
   it('supports an Escape-close mobile navigation drawer', async () => {
@@ -129,7 +136,9 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
 
     const menuButton = screen.getByRole('button', { name: 'Open navigation' })
     await user.click(menuButton)
-    expect(screen.getByLabelText('Mobile navigation')).toBeInTheDocument()
+    const mobileNavigation = screen.getByLabelText('Mobile navigation')
+    expect(mobileNavigation).toBeInTheDocument()
+    expect(within(mobileNavigation).getByRole('link', { name: 'Request a Meeting' })).toHaveAttribute('href', getMeetingCtaUrl())
 
     await user.keyboard('{Escape}')
     expect(screen.queryByLabelText('Mobile navigation')).not.toBeInTheDocument()

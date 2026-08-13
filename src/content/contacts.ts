@@ -29,12 +29,6 @@ export const contacts: Contact[] = [
   },
 ]
 
-export function getContactCtaUrl(contact: Contact) {
-  if (contact.bookingUrl) return contact.bookingUrl
-
-  return getMeetingMailtoUrl(contact.email)
-}
-
 function getMeetingMailtoUrl(email: string) {
   return `mailto:${email}?subject=${encodeURIComponent(meetingEmail.subject)}&body=${encodeURIComponent(meetingEmail.body)}`
 }

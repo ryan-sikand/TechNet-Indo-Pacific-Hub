@@ -3001,7 +3001,7 @@ button,
   padding-block: 108px;
   background:
     linear-gradient(90deg, transparent 0 76%, rgba(11, 162, 179, 0.12) 76% 88%, transparent 88%),
-    linear-gradient(0deg, transparent 0 72%, rgba(250, 70, 22, 0.11) 72% 88%, transparent 88%),
+    linear-gradient(180deg, rgba(250, 70, 22, 0.11) 0 24px, transparent 24px),
     var(--navy);
 }
 
@@ -3108,7 +3108,7 @@ button,
   padding: 66px;
   background:
     linear-gradient(90deg, transparent 0 84%, rgba(11, 162, 179, 0.22) 84% 94%, transparent 94%),
-    linear-gradient(0deg, transparent 0 80%, rgba(250, 70, 22, 0.22) 80% 94%, transparent 94%),
+    linear-gradient(180deg, rgba(250, 70, 22, 0.22) 0 24px, transparent 24px),
     var(--navy);
   border-radius: 10px;
   box-shadow: var(--shadow-lg);
@@ -3532,7 +3532,7 @@ button,
   color: #fff;
   background:
     linear-gradient(90deg, transparent 0 84%, rgba(11, 162, 179, 0.3) 84% 94%, transparent 94%),
-    linear-gradient(0deg, transparent 0 78%, rgba(250, 70, 22, 0.25) 78% 94%, transparent 94%),
+    linear-gradient(180deg, rgba(250, 70, 22, 0.25) 0 24px, transparent 24px),
     var(--navy);
   border-radius: 10px;
   box-shadow: var(--shadow-lg);

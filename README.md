@@ -28,10 +28,10 @@ The shared source model lives in `src/content/`:
 | Canonical capabilities and directorate-specific framing | `capabilities.ts` |
 | Customer-facing assets and placeholders | `resources.ts` |
 | Approved proof-point slots | `proofPoints.ts` |
-| Meeting contacts and optional booking links | `contacts.ts` |
+| Meeting contacts and shared request-email content | `contacts.ts` |
 | Header navigation | `navigation.ts` |
 
-Add or remove resources in `resources.ts`; cards and filters update from the model. To replace a contact's prepopulated email action, set its optional `bookingUrl`. No component change is required.
+Add or remove resources in `resources.ts`; cards and filters update from the model. Meeting-request buttons use one prepopulated draft addressed to every contact in `contacts.ts`; individual contact cards display email addresses without linking them.
 
 Reusable interfaces are in `src/types.ts`. Pages resolve content through `src/content/index.ts`; avoid putting campaign copy directly in components.
 
@@ -49,14 +49,14 @@ Meeting email actions open in a separate browsing context so Highspot's sandboxe
 
 ## UiPath Labs Playground deployment
 
-Target: UiPath Labs staging, organization `uipathlabs`, tenant `Playground`. The public app is upgraded in the top-level `Shared` folder so its existing pathname remains stable. Version 1.0.5 is also published to `ryan.sikand@uipath.com`'s Personal Workspace package feed.
+Target: UiPath Labs staging, organization `uipathlabs`, tenant `Playground`. The public app is upgraded in the top-level `Shared` folder so its existing pathname remains stable. Version 1.0.6 is also published to `ryan.sikand@uipath.com`'s Personal Workspace package feed.
 
 Deployment uses the saved `acebounce-staging` profile and the UiPath Coded Apps sequence:
 
 ```powershell
 uip --profile acebounce-staging login status --output json
-uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.5 --description "UiPath at TechNet Indo-Pacific 2026" --output json
-uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.5 --type Web --output json
+uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.6 --description "UiPath at TechNet Indo-Pacific 2026" --output json
+uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.6 --type Web --output json
 $folderKey = uip --profile acebounce-staging or folders list --all --name "Shared" --output json | ConvertFrom-Json | ForEach-Object { $_.Data | Where-Object { $_.Path -eq "Shared" } | Select-Object -ExpandProperty Key }
 uip --profile acebounce-staging codedapp deploy --name technet-indo-pacific-hub --folder-key $folderKey --output json
 ```
@@ -67,4 +67,4 @@ For a redeploy, increment the version in `package.json` and in the pack/publish 
 
 ## Next content pass
 
-Populate the files under `src/content/`, replace placeholder resource records with approved external assets, add approved proof points, add contact booking URLs when available, and add public-safe thumbnails under `public/`. Re-run both builds after content changes and verify any new local media is included by the Highspot packager.
+Populate the files under `src/content/`, replace placeholder resource records with approved external assets, add approved proof points, and add public-safe thumbnails under `public/`. Re-run both builds after content changes and verify any new local media is included by the Highspot packager.

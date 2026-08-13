@@ -29,7 +29,6 @@ export interface Contact {
   name: string
   title: string
   email: string
-  bookingUrl?: string
 }
 
 export interface FeaturedUseCase {

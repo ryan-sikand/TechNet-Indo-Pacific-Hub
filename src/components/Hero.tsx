@@ -60,7 +60,6 @@ export function Hero() {
         <aside className="hero__field-card" aria-label="Field guide overview">
           <div className="field-card__topline">
             <span>Digital field guide</span>
-            <strong>TIP 26</strong>
           </div>
           <div className="field-card__focus">
             <span className="micro-label">Mission focus</span>
