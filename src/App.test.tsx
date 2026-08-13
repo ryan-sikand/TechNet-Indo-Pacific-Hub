@@ -89,6 +89,18 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     })
   })
 
+  it('centers two real use cases without rendering an empty third slot', () => {
+    window.history.replaceState({}, '', '/jn/j1-n1')
+    render(<App />)
+
+    const useCaseSection = screen.getByRole('region', { name: 'Concrete ways to start the conversation.' })
+    const useCaseGrid = useCaseSection.querySelector('.use-case-grid')
+    expect(useCaseGrid).toHaveClass('use-case-grid--2')
+    expect(useCaseGrid?.querySelectorAll('.use-case-card')).toHaveLength(2)
+    expect(within(useCaseSection).getByRole('heading', { name: 'Onboarding intake' })).toBeInTheDocument()
+    expect(within(useCaseSection).getByRole('heading', { name: 'Personnel scheduling' })).toBeInTheDocument()
+  })
+
   it('resolves legacy index paths to the direct landing experience', () => {
     window.history.replaceState({}, '', '/capabilities')
     render(<App />)
@@ -106,6 +118,8 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     expect(screen.getByText('Mission Challenge')).toBeInTheDocument()
     expect(screen.getByText('UiPath Capability')).toBeInTheDocument()
     expect(screen.getByText('Relevant Use Case')).toBeInTheDocument()
+    expect(document.querySelector('.use-case-grid')).toHaveClass('use-case-grid--3')
+    expect(document.querySelectorAll('.use-case-card')).toHaveLength(3)
     expect(screen.queryByText('Demo')).not.toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'Back to staff functions' })).not.toBeInTheDocument()
   })
@@ -116,6 +130,8 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
 
     expect(screen.getByRole('heading', { name: 'Communications, IT & Cyber' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Security Operations / SOC' })).toBeInTheDocument()
+    expect(document.querySelector('.use-case-grid')).toHaveClass('use-case-grid--3')
+    expect(document.querySelectorAll('.use-case-card')).toHaveLength(3)
     expect(screen.getByRole('link', { name: /Open UiPath Test Cloud overview/i })).toHaveAttribute(
       'href',
       'https://www.uipath.com/product/test-cloud',

@@ -106,25 +106,28 @@ export function MissionDetail({
         </div>
       </section>
 
-      <section className="detail-band">
-        <div className="page-width">
-          <SectionHeading
-            eyebrow="Relevant Use Case"
-            title="Concrete ways to start the conversation."
-            description="Use-case framing is kept concise and grounded in the mission workflow."
-          />
-          <div className="use-case-grid">
-            {featuredUseCases.map((useCase, index) => (
-              <article className="use-case-card" key={useCase.id}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <Target aria-hidden="true" />
-                <h3>{useCase.title}</h3>
-                <p>{useCase.description}</p>
-              </article>
-            ))}
+      {featuredUseCases.length > 0 && (
+        <section className="detail-band" aria-labelledby="relevant-use-cases-heading">
+          <div className="page-width">
+            <SectionHeading
+              eyebrow="Relevant Use Case"
+              title="Concrete ways to start the conversation."
+              titleId="relevant-use-cases-heading"
+              description="Use-case framing is kept concise and grounded in the mission workflow."
+            />
+            <div className={`use-case-grid use-case-grid--${Math.min(featuredUseCases.length, 3)}`}>
+              {featuredUseCases.map((useCase, index) => (
+                <article className="use-case-card" key={useCase.id}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <Target aria-hidden="true" />
+                  <h3>{useCase.title}</h3>
+                  <p>{useCase.description}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {realDemos.length > 0 && (
         <section className="content-section page-width detail-section">
