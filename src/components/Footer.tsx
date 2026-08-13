@@ -9,7 +9,7 @@ export function Footer() {
         <div className="site-footer__brand">
           <BrandLogo variant="footer" />
           <p>UiPath at TechNet Indo-Pacific 2026</p>
-          <span>Agentic automation and orchestration across the J/N staff.</span>
+          <span>Agentic automation and orchestration for mission outcomes.</span>
         </div>
         <div className="site-footer__event">
           <span className="micro-label">Event</span>

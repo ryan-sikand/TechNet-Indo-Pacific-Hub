@@ -1,5 +1,5 @@
 import { ArrowRight, CalendarDays, Compass, MapPin } from 'lucide-react'
-import { event } from '../content'
+import { directorates, event } from '../content'
 import { getMeetingCtaUrl } from '../content/contacts'
 
 export function Hero() {
@@ -64,11 +64,11 @@ export function Hero() {
           </div>
           <div className="field-card__focus">
             <span className="micro-label">Mission focus</span>
-            <strong>J/N staff outcomes</strong>
+            <strong>Mission-focused outcomes</strong>
             <p>Start with the staff function. Explore the capability. Continue the conversation in Honolulu.</p>
           </div>
           <div className="field-card__stats">
-            <div><strong>08</strong><span>J/N views</span></div>
+            <div><strong>{String(directorates.length).padStart(2, '0')}</strong><span>Staff Functions</span></div>
             <div><strong>06</strong><span>Capabilities</span></div>
             <div><strong>01</strong><span>Shared model</span></div>
           </div>

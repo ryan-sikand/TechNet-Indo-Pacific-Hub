@@ -8,7 +8,7 @@ export function MeetPage() {
       <PageHero
         eyebrow={`${event.dateRange} | ${event.location}`}
         title="Meet with UiPath"
-        description="Tell us which J/N function, mission workflow, or capability you want to explore during TechNet Indo-Pacific 2026."
+        description="Tell us which staff function, mission workflow, or capability you want to explore during TechNet Indo-Pacific 2026."
       />
       <div className="page-width meet-page-section"><MeetingSection /></div>
     </>

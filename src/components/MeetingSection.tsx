@@ -9,7 +9,7 @@ export function MeetingSection({ compact = false }: { compact?: boolean }) {
         <span className="eyebrow">Meet with UiPath</span>
         <h2 id="meeting-section-title">Continue the conversation in Honolulu.</h2>
         <p>
-          Share the J/N staff function or mission workflow you want to explore. We&apos;ll use your note to prepare a focused conversation.
+          Share the staff function or mission workflow you want to explore. We’ll use your note to prepare a focused conversation.
         </p>
         <div className="meeting-section__event">
           <img src={`${import.meta.env.BASE_URL}brand/icons/calendar.svg`} alt="" width="24" height="24" decoding="async" aria-hidden="true" />

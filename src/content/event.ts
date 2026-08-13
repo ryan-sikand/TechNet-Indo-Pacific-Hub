@@ -5,10 +5,10 @@ export const event: EventContent = {
   siteTitle: 'UiPath at TechNet Indo-Pacific 2026',
   eyebrow: 'AFCEA TechNet Indo-Pacific 2026',
   title: 'UiPath at TechNet Indo-Pacific 2026',
-  subtitle: 'Agentic automation and orchestration for mission outcomes across the J/N staff.',
+  subtitle: 'Agentic automation and orchestration for mission outcomes.',
   location: 'Honolulu, Hawaii',
   dateRange: 'October 26\u201329, 2026',
   eventUrl: 'https://events.afcea.org/TIP26/Public/enter.aspx',
   description:
-    'A customer-facing field guide to UiPath use cases mapped to PACOM and PACFLT J/N staff functions.',
+    'A customer-facing field guide to UiPath use cases mapped to staff functions and mission areas.',
 }

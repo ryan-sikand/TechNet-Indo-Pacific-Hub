@@ -8,7 +8,7 @@ import { SectionHeading } from '../components/SectionHeading'
 import { RouterLink } from '../utils/router'
 
 const guideSteps = [
-  { number: '01', icon: Layers3, title: 'Start with the staff function', description: 'Choose the J/N area closest to the mission outcome or workflow.' },
+  { number: '01', icon: Layers3, title: 'Start with the staff function', description: 'Choose the staff function closest to the mission outcome or workflow.' },
   { number: '02', icon: Workflow, title: 'Explore the capability', description: 'See how one reusable capability is framed for that directorate.' },
   { number: '03', icon: CalendarDays, title: 'Shape the conversation', description: 'Bring the use case to UiPath for a focused session in Honolulu.' },
 ]
@@ -49,7 +49,7 @@ export function OverviewPage() {
         <SectionHeading
           eyebrow="Mission map"
           title="Explore by Staff Function"
-          description="Choose the staff function or mission area that best matches the conversation. Each tile opens directly to its final detail page."
+          description="Explore PACOM and PACFLT staff functions and mission areas that best match the conversation."
         />
         <DirectorateGrid />
       </section>

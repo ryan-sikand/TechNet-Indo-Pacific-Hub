@@ -7,7 +7,7 @@ export function JNPage() {
   return (
     <>
       <PageHero
-        eyebrow="PACOM / PACFLT staff functions"
+        eyebrow="Staff-function map"
         title="Explore by Staff Function"
         description="Choose a staff function or mission area. Each tile opens directly to its final mission detail page."
         breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'Explore by Staff Function' }]}

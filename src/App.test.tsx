@@ -2,20 +2,43 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { App } from './App'
-import { contacts } from './content'
+import { contacts, directorates } from './content'
 import { getMeetingCtaUrl } from './content/contacts'
+
+const expectedStaffFunctions = [
+  { code: 'J1 / N1', name: 'Manpower & Personnel', slug: 'j1-n1' },
+  { code: 'J2 / N2', name: 'Intelligence', slug: 'j2-n2' },
+  { code: 'J3 / N3', name: 'Operations', slug: 'j3-n3' },
+  { code: 'J4 / N4', name: 'Logistics', slug: 'j4-n4' },
+  { code: 'J6 / N6', name: 'Communications, IT & Cyber', slug: 'j6-n6' },
+  { code: 'J7 / N7', name: 'Training & Exercises', slug: 'j7-n7' },
+  { code: 'J8 / N8', name: 'Requirements & Resources', slug: 'j8-n8' },
+  { code: 'J9', name: 'Pacific Outreach', slug: 'j9' },
+]
 
 describe('UiPath at TechNet Indo-Pacific 2026', () => {
   beforeEach(() => {
     window.history.replaceState({}, '', '/')
   })
 
-  it('renders the public field guide skeleton and all eight J/N tiles', () => {
+  it('renders the public field guide skeleton and all eight staff-function tiles', () => {
     render(<App />)
 
     expect(screen.getByRole('heading', { name: 'UiPath at TechNet Indo-Pacific 2026' })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: 'Explore by Staff Function' })).toBeInTheDocument()
-    expect(screen.getAllByRole('link', { name: /^Explore J/i })).toHaveLength(8)
+    const staffSection = document.getElementById('staff-functions')
+    expect(staffSection).not.toBeNull()
+    const staffMap = within(staffSection!)
+    expect(staffMap.getByRole('heading', { name: 'Explore by Staff Function' })).toBeInTheDocument()
+    expect(staffMap.getByText('Explore PACOM and PACFLT staff functions and mission areas that best match the conversation.')).toBeInTheDocument()
+    expect(directorates).toHaveLength(expectedStaffFunctions.length)
+    expectedStaffFunctions.forEach(({ code, name, slug }) => {
+      expect(staffMap.getByRole('link', { name: `Explore ${code} ${name}` })).toHaveAttribute('href', `/jn/${slug}`)
+    })
+    const fieldGuide = screen.getByRole('complementary', { name: 'Field guide overview' })
+    expect(within(fieldGuide).getByText('Mission-focused outcomes')).toBeInTheDocument()
+    expect(within(fieldGuide).getByText(String(directorates.length).padStart(2, '0'))).toBeInTheDocument()
+    expect(within(fieldGuide).getByText('Staff Functions')).toBeInTheDocument()
+    expect(screen.getByText('Choose the staff function closest to the mission outcome or workflow.')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /Maritime Operations Center/i })).toHaveAttribute('href', '/maritime-operations-center')
     expect(screen.queryByRole('link', { name: 'Staff Functions' })).not.toBeInTheDocument()
     expect(screen.getAllByText('Honolulu, Hawaii').length).toBeGreaterThan(0)
@@ -83,6 +106,7 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     render(<App />)
 
     const meetingSection = screen.getByRole('region', { name: 'Continue the conversation in Honolulu.' })
+    expect(within(meetingSection).getByText('Share the staff function or mission workflow you want to explore. We’ll use your note to prepare a focused conversation.')).toBeInTheDocument()
     const meetingLinks = within(meetingSection).getAllByRole('link', { name: 'Request a Meeting' })
     expect(meetingLinks).toHaveLength(1)
     expect(meetingLinks[0]).toHaveAttribute('href', getMeetingCtaUrl())
