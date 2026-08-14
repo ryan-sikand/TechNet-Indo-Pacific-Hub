@@ -16,6 +16,11 @@ const expectedStaffFunctions = [
   { code: 'J9', name: 'Pacific Outreach', slug: 'j9' },
 ]
 
+const expectedTeamEmails = [
+  'alex.berzins@uipath.com',
+  'matt.jacobs@uipath.com',
+]
+
 describe('UiPath at TechNet Indo-Pacific 2026', () => {
   beforeEach(() => {
     window.history.replaceState({}, '', '/')
@@ -152,39 +157,36 @@ describe('UiPath at TechNet Indo-Pacific 2026', () => {
     expect(screen.getByText(/will be added here as they are approved/i)).toBeInTheDocument()
   })
 
-  it('opens one team-level Outlook calendar invitation', () => {
+  it('opens one team-level pre-populated email request', () => {
     window.history.replaceState({}, '', '/meet')
     render(<App />)
 
     const meetingSection = screen.getByRole('region', { name: 'Continue the conversation in Honolulu.' })
-    expect(within(meetingSection).getByText('Choose a date and time in the calendar invitation, then share the staff function or mission workflow you want to explore.')).toBeInTheDocument()
+    expect(within(meetingSection).getByText('Share the staff function or mission workflow you want to explore. We’ll use your note to prepare a focused conversation.')).toBeInTheDocument()
     const meetingLinks = within(meetingSection).getAllByRole('link', { name: 'Request a Meeting' })
     expect(meetingLinks).toHaveLength(1)
     expect(meetingLinks[0]).toHaveAttribute('href', getMeetingCtaUrl())
-    const calendarUrl = new URL(meetingLinks[0].getAttribute('href')!)
-    expect(calendarUrl.origin).toBe('https://outlook.office.com')
-    expect(calendarUrl.pathname).toBe('/calendar/deeplink/compose')
-    expect(calendarUrl.searchParams.get('path')).toBe('/calendar/action/compose')
-    expect(calendarUrl.searchParams.get('rru')).toBe('addevent')
-    expect(calendarUrl.searchParams.get('to')).toBe(contacts.map((contact) => contact.email).join(','))
-    expect(calendarUrl.searchParams.get('subject')).toBe('TechNet Indo-Pacific 2026 | UiPath Meeting')
-    expect(calendarUrl.searchParams.get('body')).toContain('Staff function or mission workflow')
-    expect(calendarUrl.searchParams.get('location')).toBe('TechNet Indo-Pacific 2026 | Honolulu, Hawaii')
-    expect(calendarUrl.searchParams.has('startdt')).toBe(false)
-    expect(calendarUrl.searchParams.has('enddt')).toBe(false)
-    expect(calendarUrl.searchParams.has('send')).toBe(false)
-    expect(calendarUrl.searchParams.has('members')).toBe(false)
+    const emailUrl = new URL(meetingLinks[0].getAttribute('href')!)
+    expect(emailUrl.protocol).toBe('mailto:')
+    expect(contacts.map((contact) => contact.email)).toEqual(expectedTeamEmails)
+    expect(emailUrl.pathname.split(',')).toEqual(expectedTeamEmails)
+    expect(emailUrl.searchParams.get('subject')).toBe('TechNet Indo-Pacific 2026 | UiPath Meeting Request')
+    expect(emailUrl.searchParams.get('body')).toContain('Staff function or mission workflow:')
+    expect(emailUrl.searchParams.get('body')).toContain('Preferred day/time:')
     expect(meetingLinks[0].getAttribute('href')).not.toContain('+')
-    expect(meetingLinks[0].getAttribute('href')).not.toContain('mailto:')
+    expect(meetingLinks[0].getAttribute('href')).not.toContain('outlook.office.com')
     expect(meetingLinks[0]).toHaveAttribute('target', '_blank')
     expect(meetingLinks[0]).toHaveAttribute('rel', 'noopener noreferrer')
 
-    contacts.forEach((contact) => {
-      expect(within(meetingSection).getByText(contact.email)).toBeInTheDocument()
-      expect(within(meetingSection).queryByRole('link', { name: contact.email })).not.toBeInTheDocument()
+    expectedTeamEmails.forEach((email) => {
+      const emailText = within(meetingSection).getByText(email)
+      expect(emailText).toBeInTheDocument()
+      expect(emailText.closest('a')).toBeNull()
+      expect(within(meetingSection).queryByRole('link', { name: email })).not.toBeInTheDocument()
     })
     const emailActions = within(meetingSection).getAllByRole('link').filter((link) => link.getAttribute('href')?.startsWith('mailto:'))
-    expect(emailActions).toHaveLength(0)
+    expect(emailActions).toHaveLength(1)
+    expect(emailActions[0]).toHaveAttribute('href', getMeetingCtaUrl())
   })
 
   it('supports an Escape-close mobile navigation drawer', async () => {

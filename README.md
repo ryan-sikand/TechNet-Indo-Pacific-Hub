@@ -45,20 +45,20 @@ The public build uses shareable history routes such as `/jn/j2-n2`, `/capabiliti
 
 The `build:highspot` task runs the same content and UI build in hash-routing mode, then inlines the JavaScript, CSS, and UiPath logo into `dist-highspot/index.html`. It does not iframe or depend on the public site. Open that generated file—not the source-level root `index.html` or hosted `dist/index.html`—when testing directly from disk.
 
-Meeting actions open a pre-populated Outlook calendar invitation in a separate browsing context so Highspot's sandboxed viewer stays intact. Alex Berzins and Matthew Jacobs are added as attendees, while the visitor chooses the date and time before sending. The app does not read calendar availability or create an event without the visitor's confirmation. After any source change, rebuild and upload the newly generated `dist-highspot/index.html`; an earlier Highspot upload will not update automatically.
+Meeting email actions open one pre-populated draft addressed to Alex Berzins and Matthew Jacobs in a separate browsing context so Highspot's sandboxed viewer stays intact while the browser launches the visitor's configured mail app. Individual contact cards display email addresses without linking them. After any source change, rebuild and upload the newly generated `dist-highspot/index.html`; an earlier Highspot upload will not update automatically.
 
 Staff-function cards open their detail route at the top with a brief page transition. Each staff detail keeps a sticky `Back to staff functions` link available throughout the page; it returns to the named `Explore by Staff Function` section in both hosted and Highspot routing modes.
 
 ## UiPath Labs Playground deployment
 
-Target: UiPath Labs staging, organization `uipathlabs`, tenant `Playground`. The public app is upgraded in the top-level `Shared` folder so its existing pathname remains stable. Version 1.0.9 is also published to `ryan.sikand@uipath.com`'s Personal Workspace package feed.
+Target: UiPath Labs staging, organization `uipathlabs`, tenant `Playground`. The public app is upgraded in the top-level `Shared` folder so its existing pathname remains stable. Version 1.0.10 is also published to `ryan.sikand@uipath.com`'s Personal Workspace package feed.
 
 Deployment uses the saved `acebounce-staging` profile and the UiPath Coded Apps sequence:
 
 ```powershell
 uip --profile acebounce-staging login status --output json
-uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.9 --description "UiPath at TechNet Indo-Pacific 2026" --output json
-uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.9 --type Web --output json
+uip --profile acebounce-staging codedapp pack dist --name technet-indo-pacific-hub --version 1.0.10 --description "UiPath at TechNet Indo-Pacific 2026" --output json
+uip --profile acebounce-staging codedapp publish --name technet-indo-pacific-hub --version 1.0.10 --type Web --output json
 $folderKey = uip --profile acebounce-staging or folders list --all --name "Shared" --output json | ConvertFrom-Json | ForEach-Object { $_.Data | Where-Object { $_.Path -eq "Shared" } | Select-Object -ExpandProperty Key }
 uip --profile acebounce-staging codedapp deploy --name technet-indo-pacific-hub --folder-key $folderKey --output json
 ```

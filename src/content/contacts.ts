@@ -1,16 +1,18 @@
 import type { Contact } from '../types'
 
-export const meetingInvite = {
-  subject: 'TechNet Indo-Pacific 2026 | UiPath Meeting',
-  location: 'TechNet Indo-Pacific 2026 | Honolulu, Hawaii',
-  body: `Requested through the TechNet Indo-Pacific 2026 digital field guide.
+export const meetingEmail = {
+  subject: 'TechNet Indo-Pacific 2026 | UiPath Meeting Request',
+  body: `Hello UiPath team,
 
-Please choose a date and time during October 26–29, 2026 before sending this invitation.
+I'd like to meet with the UiPath team during TechNet Indo-Pacific 2026.
 
+Name:
 Organization:
 Staff function or mission workflow:
-Discussion topic:
-Additional attendees or notes:`,
+Preferred day/time:
+Additional attendees or notes:
+
+Thank you.`,
 }
 
 export const contacts: Contact[] = [
@@ -29,16 +31,6 @@ export const contacts: Contact[] = [
 ]
 
 export function getMeetingCtaUrl() {
-  const query = [
-    ['path', '/calendar/action/compose'],
-    ['rru', 'addevent'],
-    ['subject', meetingInvite.subject],
-    ['body', meetingInvite.body],
-    ['location', meetingInvite.location],
-    ['to', contacts.map((contact) => contact.email).join(',')],
-  ]
-    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-    .join('&')
-
-  return `https://outlook.office.com/calendar/deeplink/compose?${query}`
+  const recipients = contacts.map((contact) => contact.email).join(',')
+  return `mailto:${recipients}?subject=${encodeURIComponent(meetingEmail.subject)}&body=${encodeURIComponent(meetingEmail.body)}`
 }
