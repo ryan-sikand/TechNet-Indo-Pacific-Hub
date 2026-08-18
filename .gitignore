@@ -3,3 +3,6 @@ dist/
 dist-highspot/
 .uipath/
 *.log
+
+# pnpm local store
+.pnpm-store/
